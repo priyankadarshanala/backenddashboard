@@ -4,6 +4,7 @@ using AngularAuthYtAPI.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AngularAuthYtAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230711122503_jobsqualification")]
+    partial class jobsqualification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +75,6 @@ namespace AngularAuthYtAPI.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Experience")
                         .HasColumnType("nvarchar(max)");
 
@@ -91,20 +90,11 @@ namespace AngularAuthYtAPI.Migrations
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PostedDate")
+                    b.Property<DateTime?>("PostedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Qualification")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float?>("Salary")
-                        .HasColumnType("real");
 
                     b.Property<string>("Skills")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Vacancy")
-                        .HasColumnType("int");
 
                     b.HasKey("JobId");
 
@@ -163,45 +153,6 @@ namespace AngularAuthYtAPI.Migrations
                     b.ToTable("jobs", (string)null);
                 });
 
-            modelBuilder.Entity("AngularAuthYtAPI.Models.ResumeClass", b =>
-                {
-                    b.Property<int>("ResumeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResumeId"), 1L, 1);
-
-                    b.Property<DateTime>("ApplicationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte[]>("FileData")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FilePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("JobId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ResumeId");
-
-                    b.HasIndex("JobId");
-
-                    b.ToTable("ResumesUpload");
-                });
-
             modelBuilder.Entity("AngularAuthYtAPI.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -240,17 +191,6 @@ namespace AngularAuthYtAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("users", (string)null);
-                });
-
-            modelBuilder.Entity("AngularAuthYtAPI.Models.ResumeClass", b =>
-                {
-                    b.HasOne("AngularAuthYtAPI.Models.Jobs", "job")
-                        .WithMany()
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("job");
                 });
 #pragma warning restore 612, 618
         }
